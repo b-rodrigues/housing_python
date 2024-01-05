@@ -1,20 +1,14 @@
+# Get python installed by any means on your computer
+# you could install python using pyenv:
 pyenv install 3.12.1
 
 # switch to project directory and set up local python version
-
 pyenv local 3.12.1
 # puts a .python_version file in that directory
 
-# create a virtualenv
-pyenv virtualenv project_name
-
-# activate the environment for local use
-pyenv local project_name
-pyenv activate project_name
-
-# see and cite:https://realpython.com/intro-to-pyenv/#local 
+# Install pipenv
+pip install pipenv --user
 
 # install packages
-pip install plotnine polars openpyxl
+pipenv install plotnine polars openpyxl beautifulsoup4
 
-python -m pip freeze > requirements.txt
