@@ -7,6 +7,8 @@ name = "pypi"
 plotnine = "*"
 beautifulsoup4 = "*"
 polars = "*"
+openpyxl = "*"
+ipython = "*"
 
 [dev-packages]
 
