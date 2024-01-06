@@ -3,7 +3,7 @@
 pyenv install 3.12.1
 
 # switch to project directory and set up global python version
-pyenv globar 3.12.1
+pyenv global 3.12.1
 
 # Install pipenv
 pip install pipenv --user
