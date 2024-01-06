@@ -9,5 +9,5 @@ pyenv globar 3.12.1
 pip install pipenv --user
 
 # install packages in your project's directory
-pipenv install plotnine polars openpyxl beautifulsoup4
+pipenv install plotnine polars pandas beautifulsoup4
 
