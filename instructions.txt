@@ -2,13 +2,12 @@
 # you could install python using pyenv:
 pyenv install 3.12.1
 
-# switch to project directory and set up local python version
-pyenv local 3.12.1
-# puts a .python_version file in that directory
+# switch to project directory and set up global python version
+pyenv globar 3.12.1
 
 # Install pipenv
 pip install pipenv --user
 
-# install packages
+# install packages in your project's directory
 pipenv install plotnine polars openpyxl beautifulsoup4
 
