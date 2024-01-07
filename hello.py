@@ -1,4 +1,16 @@
 import polars as pl
-import openpyxl as opxl
+import pandas as pd
 
-housing_raw = opxl.load_workbook("vente-maison-2010-2021.xlsx")
+sheets = pd.ExcelFile("vente-maison-2010-2021.xlsx").sheet_names
+
+housing_raw = (
+    pd.read_excel(
+        io = "vente-maison-2010-2021.xlsx",
+        sheet_name = "2010",
+        skiprows = 10,
+        header = 1
+    )
+    .dropna(
+        axis = "columns",
+        how = "all")
+    )
