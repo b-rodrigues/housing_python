@@ -44,12 +44,37 @@ dataset = (
     .assign(
         commune = datasets_raw.commune.str.strip()
     )
+    .reindex(
+        columns = ["year", "commune", "nombre_doffres"] + [col for col in datasets_raw.columns if col.startswith("prix")]
+    )
     .rename(
         columns={
-          "locality": "commune",
-          "n_offers": "nombre_doffres",
-          "average_price_nominal_euros": "prix_moyen_annonce_en_courant",
-          "average_price_m2_nominal_euros": "prix_moyen_annonce_au_m_en_courant"
+          "commune": "locality",
+          "nombre_doffres": "n_offers",
+          "prix_moyen_annonce_en_courant": "average_price_nominal_euros",
+          "prix_moyen_annonce_au_m_en_courant": "average_price_m2_nominal_euros"
         }
     )
+)
+
+
+# Convert columns starting with "average" to numeric
+average_columns = [col for col in dataset.columns if col.startswith('average')]
+
+# Loop through selected columns and convert to numeric
+for col in average_columns:
+    dataset[col] = pd.to_numeric(dataset[col], errors='coerce')
+
+dataset = (dataset
+ .assign(
+   locality = dataset.locality.where(
+       ~dataset.locality.str.contains("Luxembourg"), "Luxembourg")
+ )
+)
+
+dataset = (dataset
+ .assign(
+   locality = dataset.locality.where(
+       ~dataset.locality.str.contains("P.tange"), "Pétange")
+ )
 )
