@@ -3,38 +3,28 @@ import polars.selectors as cs
 #from skimpy import clean_columns
 import re
 
-datasets = pl.read_excel(
-    source = "vente-maison-2010-2021.xlsx",
-    sheet_id = 0,
-    read_csv_options = {
-        # Polars skip empty rows that that come before any data by default, which is quite helpful
-        # with Pandas, 10 rows should get skipped for sheets 2010 to 2020, but only 8 for sheet 2021
-        # but in the case of Polars, because empty rows get skipped automatically, 6 more rows
-        # must get skipped. Check out the Excel file to see what I mean.
-        "skip_rows": 6,
-        "has_header": True#,
-        # new_columns would be the preferred approach, but for some reason when using it on this Excel File,
-        # two more empty columns appear. So I could call them a and b and then remove them
-        # this is what the commented line below does. However, I decided to apply a function
-        # that cleans the column names myself. It’s more complicated, but also more elegant as it would
-        # work for any number of columns and in any order
-        # "new_columns": ["a", "b","locality", "n_offers", "average_price_nominal_euros", "average_price_m2_nominal_euros"]
-    }
-)
-
 # Need to use this instead of the above to add year column
-def wrap_read_excel(excel_file, sheet):
-    pl.read_excel(
-        source = excel_file,
-        sheet_name = name,
-        read_csv_options = {
-        "skip_rows": 6,
-        "has_header": True
-        }
-    ).with_columns(pl.lit(sheet).alias("year"))
+def read_excel(excel_file, sheet):
+    out = pl.read_excel(
+            source = excel_file,
+            sheet_name = sheet,
+            read_csv_options = {
+            "skip_rows": 6,
+            "has_header": True
+            }
+          ).with_columns(pl.lit(sheet).alias("year"))
+    return out
 
+def wrap_read_excel(sheet):
+    out = read_excel(excel_file = "vente-maison-2010-2021.xlsx",
+                          sheet = sheet)
+    return out
 
-# This function will be used belowe to clean the column names
+sheets = list(map(str, range(2010, 2022)))
+
+raw_data = pl.concat(list(map(wrap_read_excel, sheets)))
+
+# This function will be used below to clean the column names
 def clean_names(string):
     # inspired by https://nadeauinnovations.com/post/2020/11/python-tricks-replace-all-non-alphanumeric-characters-in-a-string/
     clean_string = [s for s in string if s.isalnum() or s.isspace()]
@@ -46,7 +36,7 @@ def clean_names(string):
 # This row-binds all the datasets (first converting the dict to a list), and
 # then renames the columns using the above defined function
 # Not as nice as skimpy.clean_columns, put works on Polars DataFrames
-raw_data = pl.concat(datasets.values()).select(pl.all().name.map(clean_names))
+raw_data = raw_data.select(pl.all().name.map(clean_names))
 
 raw_data = (
     raw_data
@@ -105,6 +95,29 @@ country_level_data = (
     country_level.join(offers_country, on = "year")
     .with_columns(pl.lit("Grand-Duchy of Luxembourg").alias("locality"))
 )
+
+
+# if the data already had a year column, I could have read all the sheets
+# in one go using the following code
+
+#datasets = pl.read_excel(
+#    source = "vente-maison-2010-2021.xlsx",
+#    sheet_id = 0,
+#    read_csv_options = {
+#        # Polars skip empty rows that that come before any data by default, which is quite helpful
+#        # with Pandas, 10 rows should get skipped for sheets 2010 to 2020, but only 8 for sheet 2021
+#        # but in the case of Polars, because empty rows get skipped automatically, 6 more rows
+#        # must get skipped. Check out the Excel file to see what I mean.
+#        "skip_rows": 6,
+#        "has_header": True#,
+#        # new_columns would be the preferred approach, but for some reason when using it on this Excel File,
+#        # two more empty columns appear. So I could call them a and b and then remove them
+#        # this is what the commented line below does. However, I decided to apply a function
+#        # that cleans the column names myself. It’s more complicated, but also more elegant as it would
+#        # work for any number of columns and in any order
+#        # "new_columns": ["a", "b","locality", "n_offers", "average_price_nominal_euros", "average_price_m2_nominal_euros"]
+#    }
+#)
 
 
 
