@@ -10,6 +10,7 @@ polars = "*"
 openpyxl = "*"
 ipython = "*"
 skimpy = "*"
+xlsx2csv = "*"
 
 [dev-packages]
 
