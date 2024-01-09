@@ -134,4 +134,18 @@ country_level_data = (
 #    read_csv_options = {"skip_rows": 10, "has_header": True}
 #)
 
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+
+# we now need to scrape wikipedia pages
+url = 'https://b-rodrigues.github.io/list_communes/'
+
+html = urlopen(url)
+
+soup = BeautifulSoup(html, 'html.parser')
+
+hu = soup.find_all("table")
+
+hu[1]
+
 
