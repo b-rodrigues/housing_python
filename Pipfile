@@ -11,6 +11,7 @@ openpyxl = "*"
 ipython = "*"
 skimpy = "*"
 xlsx2csv = "*"
+lxml = "*"
 
 [dev-packages]
 
