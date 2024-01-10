@@ -61,6 +61,9 @@ raw_data = (
       }
     )
     .with_columns(
+        cs.contains("average").cast(pl.Float64, strict = False)
+    )
+    .with_columns(
         # In some sheets it’s "Luxembourg", in others it’s "Luxembourg-Ville"
       pl.col("locality").str.replace_all("Luxembourg.*", "Luxembourg")
     )
@@ -298,3 +301,9 @@ commune_level_data
  .sort()
  .to_list()
 )
+
+# save data as csv
+
+commune_level_data.write_csv("commune_level_data.csv")
+country_level_data.write_csv("country_level_data.csv")
+
