@@ -24,3 +24,8 @@ jobs:
         run: |
           pipenv run python save_data.py
           pipenv run python analysis.py
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: plots
+          path: /github/workspace/plots/
