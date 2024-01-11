@@ -21,4 +21,6 @@ jobs:
         run: pipenv install
 
       - name: Run pipeline
-        run: pipenv run python pl_save_data.py
+        run: |
+          pipenv run python save_data.py
+          pipenv run python analysis.py
