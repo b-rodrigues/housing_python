@@ -27,5 +27,5 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: plots
+          name: plots_${{ github.sha }}
           path: plots/
