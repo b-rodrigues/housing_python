@@ -12,6 +12,7 @@ ipython = "*"
 skimpy = "*"
 xlsx2csv = "*"
 lxml = "*"
+pexpect = "*"
 
 [dev-packages]
 
