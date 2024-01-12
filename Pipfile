@@ -4,15 +4,16 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-plotnine = "*"
 beautifulsoup4 = "*"
-polars = "*"
+polars = "==0.20.3"
 openpyxl = "*"
 ipython = "*"
 skimpy = "*"
 xlsx2csv = "*"
 lxml = "*"
 pexpect = "*"
+ploomber = "*"
+plotnine = "*"
 
 [dev-packages]
 

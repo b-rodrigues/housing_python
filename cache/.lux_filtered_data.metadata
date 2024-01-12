@@ -1,0 +1,1 @@
+{"timestamp": 1705076262.865587, "stored_source_code": "def lux_filtered_data(laspeyeres_commune_data, laspeyeres_country_data):\n    out = filtered_data(laspeyeres_commune_data,\n                        laspeyeres_country_data,\n                        \"Luxembourg\")\n    return out\n", "params": {}}

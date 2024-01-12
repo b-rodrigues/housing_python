@@ -1,0 +1,1 @@
+{"timestamp": 1705076267.6898, "stored_source_code": "def luxembourg_plot(lux_filtered_data):\n    luxembourg_plot = make_plot(lux_filtered_data)\n    luxembourg_plot.save(filename = \"lux_plot.pdf\",\n                         path = \"ploomber_plots/\")\n\n    return \"Plot save to disk\"\n", "params": {}}

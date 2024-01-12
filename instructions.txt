@@ -11,3 +11,5 @@ pip install pipenv --user
 # install packages in your project's directory
 pipenv install plotnine polars pandas beautifulsoup4
 
+# how to install a package from github using pipenv  
+pipenv install -e git+https://github.com/has2k1/plotnine.git@main#egg=plotnine
