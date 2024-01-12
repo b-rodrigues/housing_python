@@ -1,7 +1,7 @@
 from polars import read_csv, col
 from ploomber.micro import dag_from_functions
 from ploomber.io import unserializer_pickle
-from functions import get_laspeyeres, filtered_data, make_plot
+from functions import get_laspeyeres, get_filtered_data, make_plot
 
 def read_target(target):
     return unserializer_pickle(dag[target].product)
@@ -22,10 +22,28 @@ def laspeyeres_country_data(read_country_level_data):
     country_data = get_laspeyeres(read_country_level_data)
     return country_data
 
-def lux_filtered_data(laspeyeres_commune_data, laspeyeres_country_data):
-    out = filtered_data(laspeyeres_commune_data,
-                        laspeyeres_country_data,
-                        "Luxembourg")
+def lux_filtered_data(laspeyeres_country_data, laspeyeres_commune_data):
+    out = get_filtered_data(laspeyeres_country_data,
+                            laspeyeres_commune_data,
+                            "Luxembourg")
+    return out
+
+def esch_filtered_data(laspeyeres_country_data, laspeyeres_commune_data):
+    out = get_filtered_data(laspeyeres_country_data,
+                            laspeyeres_commune_data,
+                            "Esch-sur-Alzette")
+    return out
+
+def mamer_filtered_data(laspeyeres_country_data, laspeyeres_commune_data):
+    out = get_filtered_data(laspeyeres_country_data,
+                            laspeyeres_commune_data,
+                            "Mamer")
+    return out
+
+def schengen_filtered_data(laspeyeres_country_data, laspeyeres_commune_data):
+    out = get_filtered_data(laspeyeres_country_data,
+                            laspeyeres_commune_data,
+                            "Schengen")
     return out
 
 def luxembourg_plot(lux_filtered_data):
@@ -33,7 +51,28 @@ def luxembourg_plot(lux_filtered_data):
     luxembourg_plot.save(filename = "lux_plot.pdf",
                          path = "ploomber_plots/")
 
-    return "Plot save to disk"
+    return 1
+
+def esch_plot(esch_filtered_data):
+    esch_plot = make_plot(esch_filtered_data)
+    esch_plot.save(filename = "esch_plot.pdf",
+                         path = "ploomber_plots/")
+
+    return 1
+
+def mamer_plot(mamer_filtered_data):
+    mamer_plot = make_plot(mamer_filtered_data)
+    mamer_plot.save(filename = "mamer_plot.pdf",
+                         path = "ploomber_plots/")
+
+    return 1
+
+def schengen_plot(schengen_filtered_data):
+    schengen_plot = make_plot(schengen_filtered_data)
+    schengen_plot.save(filename = "schengen_plot.pdf",
+                         path = "ploomber_plots/")
+
+    return 1
 
 dag = dag_from_functions(
     [
@@ -42,7 +81,13 @@ dag = dag_from_functions(
         laspeyeres_commune_data,
         laspeyeres_country_data,
         lux_filtered_data,
-        luxembourg_plot
+        luxembourg_plot,
+        esch_filtered_data,
+        esch_plot,
+        mamer_filtered_data,
+        mamer_plot,
+        schengen_filtered_data,
+        schengen_plot,
     ],
     output="cache"
 )

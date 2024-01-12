@@ -1,0 +1,1 @@
+{"timestamp": 1705092089.530394, "stored_source_code": "def mamer_filtered_data(laspeyeres_country_data, laspeyeres_commune_data):\n    out = get_filtered_data(laspeyeres_country_data,\n                            laspeyeres_commune_data,\n                            \"Mamer\")\n    return out\n", "params": {}}

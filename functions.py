@@ -26,7 +26,7 @@ def get_laspeyeres(x_level_data):
     )
     return out
 
-def filtered_data(country_level_data, commune_level_data, commune):
+def get_filtered_data(country_level_data, commune_level_data, commune):
   filtered_data = (
       commune_level_data
       .filter(col("locality").eq(commune))

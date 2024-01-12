@@ -1,0 +1,1 @@
+{"timestamp": 1705092090.193833, "stored_source_code": "def esch_plot(esch_filtered_data):\n    esch_plot = make_plot(esch_filtered_data)\n    esch_plot.save(filename = \"esch_plot.pdf\",\n                         path = \"ploomber_plots/\")\n\n    return 1\n", "params": {}}
