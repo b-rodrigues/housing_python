@@ -21,4 +21,11 @@ jobs:
         run: pipenv install
 
       - name: Run pipeline
-        run: pipenv run python hello.py
+        run: |
+          pipenv run python save_data.py
+          pipenv run python analysis.py
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: plots_${{ github.sha }}
+          path: plots/

@@ -2,6 +2,7 @@
 # you could install python using pyenv:
 pyenv install 3.10.13
 
+<<<<<<< HEAD
 # switch to project directory and set up local python version
 pyenv local 3.10.13
 # if this errors with a message "no module named zlib" and
@@ -15,7 +16,6 @@ pyenv local 3.10.13
 
 # also check https://github.com/pyenv/pyenv/wiki/common-build-problems#build-failed-error-the-python-zlib-extension-was-not-compiled-missing-the-zlib
 
-# puts a .python_version file in that directory
 
 # Check that the correct pip is being used by running
 pip --version

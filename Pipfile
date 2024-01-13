@@ -7,6 +7,12 @@ name = "pypi"
 plotnine = "*"
 beautifulsoup4 = "*"
 polars = "*"
+openpyxl = "*"
+ipython = "*"
+skimpy = "*"
+xlsx2csv = "*"
+lxml = "*"
+pexpect = "*"
 
 [dev-packages]
 
