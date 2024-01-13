@@ -1,14 +1,33 @@
 # Get python installed by any means on your computer
 # you could install python using pyenv:
-pyenv install 3.12.1
+pyenv install 3.10.13
 
 # switch to project directory and set up local python version
-pyenv local 3.12.1
+pyenv local 3.10.13
+# if this errors with a message "no module named zlib" and
+# you're on ubuntu then you need to install development libraries.
+# On Ubuntu, running this should install all the required libraries
+# to compile Python
+
+# sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
+# libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
+# xz-utils tk-dev libffi-dev liblzma-dev git
+
+# also check https://github.com/pyenv/pyenv/wiki/common-build-problems#build-failed-error-the-python-zlib-extension-was-not-compiled-missing-the-zlib
+
 # puts a .python_version file in that directory
+
+# Check that the correct pip is being used by running
+pip --version
+
+# You should see something like
+# pip 23.0.1 from /home/user/.pyenv/versions/3.10.13/lib/python3.10/site-packages/pip (python 3.10)
 
 # Install pipenv
 pip install pipenv --user
 
-# install packages
-pipenv install plotnine polars openpyxl beautifulsoup4
+# if you're restoring a project, and already have Pipfile and Pipfile.lock files, then run
+pipenv install
 
+# or install packages
+pipenv install plotnine polars openpyxl beautifulsoup4
