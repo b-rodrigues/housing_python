@@ -18,7 +18,7 @@ jobs:
         run: pip install pipenv
 
       - name: Instal packages
-        run: pipenv install
+        run: pipenv sync
 
       - name: Run pipeline
         run: |
