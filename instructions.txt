@@ -39,3 +39,7 @@ pipenv install polars plotnine
  micromamba create -n 3.10.12 pipenv python=3.10.12
 
 # activate the environment, and use it to install packages using pipenv and recreate the Pipfiles
+# instead of activating the environment, you could do
+micromamba run -n 3.10.12 pipenv install polars==1.0.0 plotnine
+
+# drop into the shell using pipenv shell (if you didn’t activate the micromamba shell before, use micromamba run -n 3.10.12 pipenv shell)
