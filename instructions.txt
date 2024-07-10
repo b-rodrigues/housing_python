@@ -19,18 +19,23 @@ pipenv install -e git+https://github.com/has2k1/plotnine.git@main#egg=plotnine
 
 # Install micromamba
 
-# create an environment for a project
-micromamba create -n housing_env conda-lock plotnine pandas polars beautifulsoup4 python=3.12.1 
+# Install a python interpreter and pipenv
 
-# generate environment.yml
-micromamba env export -n housing_env > environment.yml
+# This will create an environment called main with pipenv and the required python for the project
+micromamba create -n main pipenv python=3.12.1
 
-# generate lockfile
-# but very fragile
-conda-lock -f environment.yml 
+# Activate this environment
+micromamba activate main
 
+# you can now use pipenv to install packages and a project-specific python interpreter
+cd ~/myproject
+pipenv install polars plotnine
 
-## Alternative?
+# In the lockfile, you can adjust the python version by adding the .patch to the version number then run "pipenv update"
+# to make sure that this is reflected in the lockfile as well
 
-# use micromamba to install poetry and different python interpreters in an environment called "poetry"
-# set up projects with poetry and let poetry manage deps?
+# if you need another python version for another project, install the interpreter using micromamba in a 
+# new environment
+ micromamba create -n 3.10.12 pipenv python=3.10.12
+
+# activate the environment, and use it to install packages using pipenv and recreate the Pipfiles
