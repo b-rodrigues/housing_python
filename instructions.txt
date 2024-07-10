@@ -26,4 +26,11 @@ micromamba create -n housing_env conda-lock plotnine pandas polars beautifulsoup
 micromamba env export -n housing_env > environment.yml
 
 # generate lockfile
+# but very fragile
 conda-lock -f environment.yml 
+
+
+## Alternative?
+
+# use micromamba to install poetry and different python interpreters in an environment called "poetry"
+# set up projects with poetry and let poetry manage deps?
